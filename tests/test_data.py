@@ -13,5 +13,3 @@ def test_data():
     assert (train_targets == torch.arange(0,10)).all()
     test_targets = torch.unique(test.tensors[1])
     assert (test_targets == torch.arange(0,10)).all()
-
-    

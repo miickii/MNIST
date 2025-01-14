@@ -67,7 +67,7 @@ def train(lr: float = 0.001, batch_size: int = 32, epochs: int = 5) -> None:
                 name=f"ROC curve for {class_id}",
                 plot_chance_level=(class_id == 2),
             )
-        
+
         # Log the ROC curve plot using wandb.Image
         wandb.log({"roc": wandb.Image(plt)})
         plt.close()  # Close the plot to avoid memory leaks and overlapping figures
