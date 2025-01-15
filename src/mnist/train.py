@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import torch
 import typer
 import wandb
-from mnist.data import corrupt_mnist
+from mnist.dataset import MnistDataset
 from mnist.model import MyAwesomeModel
 from sklearn.metrics import RocCurveDisplay, accuracy_score, f1_score, precision_score, recall_score
 
@@ -19,7 +19,7 @@ def train(lr: float = 0.001, batch_size: int = 32, epochs: int = 5) -> None:
     )
 
     model = MyAwesomeModel().to(DEVICE)
-    train_set, _ = corrupt_mnist()
+    train_set = MnistDataset(train=True)
 
     train_dataloader = torch.utils.data.DataLoader(train_set, batch_size=batch_size)
 

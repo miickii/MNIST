@@ -33,3 +33,4 @@ omit = ["tests/*"]
 
 [project.scripts]
 train = "mnist.train:main"
+lightning_train = "mnist.lightning_train:main"

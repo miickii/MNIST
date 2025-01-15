@@ -1,7 +1,7 @@
 import torch
 import typer
-from data import corrupt_mnist
-from model import MyAwesomeModel
+from mnist.dataset import MnistDataset
+from mnist.model import MyAwesomeModel
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu")
 
@@ -14,7 +14,7 @@ def evaluate(model_checkpoint: str) -> None:
     model = MyAwesomeModel().to(DEVICE)
     model.load_state_dict(torch.load(model_checkpoint))
 
-    _, test_set = corrupt_mnist()
+    test_set = MnistDataset(train=False)
     test_dataloader = torch.utils.data.DataLoader(test_set, batch_size=32)
 
     model.eval()
