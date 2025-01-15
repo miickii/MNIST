@@ -22,13 +22,15 @@ jobs:
         python-version: ${{ matrix.python-version }}
         cache: 'pip' # caching pip dependencies
 
-    - name: Set PYTHONPATH (cross-platform)
-      run: |
-        if [ $RUNNER_OS = 'Windows' ]; then \
-          echo "PYTHONPATH=$env:PYTHONPATH;$(pwd)/src" | Out-File -Encoding utf8 -FilePath $Env:GITHUB_ENV; \
-        else \
-          echo "PYTHONPATH=$PYTHONPATH:$(pwd)/src" >> $GITHUB_ENV; \
-        fi
+    - name: Set PYTHONPATH for Windows
+      if: runner.os == 'Windows'
+      run: echo "PYTHONPATH=$(pwd)/src" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8
+      shell: pwsh
+
+    - name: Set PYTHONPATH for Unix
+      if: runner.os != 'Windows'
+      run: echo "PYTHONPATH=$(pwd)/src" >> $GITHUB_ENV
+      shell: bash
 
     - name: Install dependencies
       run: |
